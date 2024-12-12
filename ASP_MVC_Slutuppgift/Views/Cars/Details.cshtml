@@ -1,0 +1,22 @@
+﻿@model DetailsVM
+<article>
+    <header>
+        <h1>Car Details</h1>
+        <p class="lead">Here are the details of the selected car</p>
+    </header>
+
+    <section>
+        <h2>Details</h2>
+        <ul>
+            <li><strong>Model:</strong> @Model.Model</li>
+            <li><strong>License Plate:</strong> @Model.LicensePlate</li>
+            <li><strong>Category:</strong> @Model.Category</li>
+            <li><strong>Description:</strong> @(string.IsNullOrEmpty(Model.Description) ? "No description available" : Model.Description)</li>
+        </ul>
+    </section>
+
+        <a asp-controller="cars" asp-action="CarIndex" class="btn">Back to Cars</a>
+        <a asp-controller="cars" asp-action="Book" asp-route-id="@Model.Id" class="btn">Book this car</a>
+        <a asp-controller="cars" asp-action="Save" asp-route-id="@Model.Id" class="btn">Save for later</a>
+    
+</article>

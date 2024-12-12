@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@picocss/pico@2/css/pico.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <main>
+            <nav class="menu">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Start</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                        <li><a asp-controller="Account" asp-action="LogIn">Login</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Cars" asp-action="CarIndex">Show Cars</a></li>
+                        <li><a asp-controller="Account" asp-action="UserPage">User Page</a></li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><a asp-controller="Admin" asp-action="AdminIndex">Admin Panel</a></li>
+                        }
+                        <li><a asp-controller="Account" asp-action="LogOut">Logout</a></li>
+                    }
+                </ul>
+            </nav>
+            <br />
+            @RenderBody()
+        </main>
+        <div class="grid">
+            <div>
+            </div>
+            <div>
+                <footer style="text-align: center;">
+                    &copy; ASP.NET MVC Slutuppgift
+                </footer>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", false)
+</body>
+</html>

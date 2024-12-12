@@ -1,0 +1,42 @@
+﻿@model LoginVM
+<article>
+
+    <div class="grid">
+        <div>
+            <article>
+            <h2>Log In</h2>
+
+                <form asp-controller="Account" asp-action="Login">
+                    <input asp-for="Username" placeholder="Enter Username" />
+                    <span asp-validation-for="Username"></span>
+
+                    <input asp-for="Password" placeholder="Enter Password" />
+                    <span asp-validation-for="Password"></span>
+                    <br />
+                    <input type="submit" value="Login" />
+                    <div asp-validation-summary="All"></div>
+                </form>
+            </article>
+        </div>
+        <div>
+            <article>
+                <h2>Why Log In?</h2>
+                <p>Logging in gives you access to exclusive features:</p>
+                <ul>
+                    <li>View your account details and bookings.</li>
+                    <li>Manage your preferences and settings.</li>
+                    <li>Access admin features if you have the appropriate role.</li>
+                </ul>
+                <p>Don't have an account? <a asp-controller="Account" asp-action="Register">Register here</a> to get started.</p>
+            </article>
+        </div>
+    </div>
+</article>
+
+@section scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"
+            asp-fallback-src="/scripts/lib/jquery/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+}

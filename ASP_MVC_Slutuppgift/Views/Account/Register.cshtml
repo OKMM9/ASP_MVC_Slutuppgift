@@ -1,0 +1,49 @@
+﻿@model RegisterVM
+<article>
+    <div class="grid">
+
+    <div class="grid">
+    <div>
+    <h2>Register</h2>
+    <article>
+
+        <form asp-controller="Account" asp-action="Register">
+            <input asp-for="Username" placeholder="Username" />
+            <span asp-validation-for="Username"></span>
+
+            <input asp-for="Password" placeholder="Password" />
+            <span asp-validation-for="Password"></span>
+
+            <input asp-for="PasswordRepeat" placeholder="Repeat Password" />
+            <span asp-validation-for="PasswordRepeat"></span>
+            <br />
+            <input type="submit" value="Register" />
+            <input type="checkbox" asp-for="IsAdmin"/> Try Admin role account?
+        </form>
+        <div asp-validation-summary="All"></div>
+    </article>
+    </div>
+        <div>
+            <h2>Why Register?</h2>
+            <article>
+                <p>Creating an account allows you to:</p>
+                <ul>
+                    <li>Access exclusive features and content.</li>
+                    <li>Keep track of your car bookings and manage your reservations.</li>
+                    <li>Get personalized recommendations based on your preferences.</li>
+                    <li>If you have an admin role, you will have additional privileges to manage users and data.</li>
+                </ul>
+                <p>Register now to enjoy these benefits!</p>
+            </article>
+            </div>
+</div>
+    </div>
+
+</article>
+@section scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"
+            asp-fallback-src="/scripts/lib/jquery/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+}

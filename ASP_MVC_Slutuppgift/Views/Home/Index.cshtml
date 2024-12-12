@@ -1,0 +1,62 @@
+﻿@model IndexVM
+<article>
+
+<div class="grid">
+
+    <div>
+
+        <h1 class="text-3xl font-bold text-slate-300 underline">
+            Car rental service!
+        </h1>
+        <article>
+            <h2>About Our Car Rental Service</h2>
+            <p>
+                Welcome to the easiest way to rent a car! We offer a variety of vehicles to suit
+                your needs, whether you're planning a weekend getaway, a business trip, or simply
+                need a car for everyday errands.
+            </p>
+
+            <h3>How It Works</h3>
+            <ol>
+                <li><strong>Browse:</strong> Explore our available cars listed below.</li>
+                <li><strong>Choose:</strong> Select a car that fits your requirements and budget.</li>
+                <li><strong>Reserve:</strong> Click the <span style="color: #0288d1;">book icon</span> to reserve your car.</li>
+                <li><strong>Drive:</strong> Pick up your car and enjoy the ride!</li>
+            </ol>
+
+            <h3>Why Choose Us?</h3>
+            <ul>
+                <li>Wide range of vehicles for every occasion.</li>
+                <li>Affordable pricing with no hidden fees.</li>
+                <li>Simple and fast booking process.</li>
+                <li>Friendly customer support to assist you.</li>
+            </ul>
+        </article>
+    </div>
+    <div>
+        <h2>Available Cars!</h2>
+        <table class="striped">
+            <tbody>
+                @foreach (var car in Model.CarItems)
+                {
+                    <tr>
+                        <td>@car.Model</td>
+                        <td>@car.Category</td>
+                        <td>
+                            <a asp-controller="Cars" asp-action="Book" asp-route-id="@car.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 13 L5 8 h14 l2 5"></path>
+                                    <rect x="3" y="13" width="18" height="4" rx="1"></rect>
+                                    <circle cx="7" cy="17" r="2"></circle>
+                                    <circle cx="17" cy="17" r="2"></circle>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</article>
