@@ -1,10 +1,8 @@
 ﻿@model UserPageVM
-
-
 <nav>
-    <a asp-controller="account" asp-action="edit">Edit user settings</a>
+    <a asp-controller="Account" asp-action="EditUser">Edit user settings</a>
 </nav>
 <article>
-
-<h2>Hello @Model.Username!</h2>
+    @Model.Temp
+    <h2>Hello @Model.Username!</h2>
 </article>

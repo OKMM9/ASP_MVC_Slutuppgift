@@ -10,38 +10,40 @@ namespace ASP_MVC_Slutuppgift.Services;
 
 public class DataService(ApplicationDbContext dbContext, StateService stateService, IHttpClientFactory clientFactory)
 {
-    public CreateVM GetVehicleTypeSelectList()
+    public async Task<CreateVM> GetVehicleTypeSelectListAsync()
     {
-        return new CreateVM
-        {
-            CategoryList = dbContext.Categories
+        var categoriesSelect = await dbContext.Categories
                 .Select(o => new SelectListItem
                 {
                     Value = o.Id.ToString(),
                     Text = o.Name
                 })
-                .ToArray()
-        };
-    }
-    public async Task<CarIndexVM> GetAllCarsAsync()
-    {
-        var ret = new CarIndexVM
+                .ToArrayAsync();
+        
+        return new CreateVM()
         {
-            Temp = stateService.TempDataConfirmation,
-            CarItems = await dbContext.Cars
-                .Select(o => new CarIndexVM.CarItemsVM
-                {
-                    Id = o.Id,
-                    Model = o.Model,
-                    Category = o.Category.Name,
-                    LicensePlate = o.LicensePlate,
-                })
-                .OrderBy(o => o.Model)
-                .ToListAsync(),
+            CategoryList = categoriesSelect
         };
-
-        return ret;
     }
+    //public async Task<CarIndexVM> GetAllCarsAsync()
+    //{
+    //    var ret = new CarIndexVM
+    //    {
+    //        Temp = stateService.TempDataCreateVehicleConfirmation,
+    //        CarItems = await dbContext.Cars
+    //            .Select(o => new CarIndexVM.CarItemsVM
+    //            {
+    //                Id = o.Id,
+    //                Model = o.Model,
+    //                Category = o.Category.Name,
+    //                LicensePlate = o.LicensePlate,
+    //            })
+    //            .OrderBy(o => o.Model)
+    //            .ToListAsync(),
+    //    };
+
+    //    return ret;
+    //}
     public async Task<IndexVM> GetAllCarsForHomeIndexAsync()
     {
         var ret = new IndexVM
@@ -87,42 +89,62 @@ public class DataService(ApplicationDbContext dbContext, StateService stateServi
 
         if (result > 0)
         {
-            stateService.TempDataConfirmation = $"Vehicle with license plate: {viewModel.LicensePlate} successfully registered!";
+            stateService.TempDataCreateVehicleConfirmation = $"Vehicle with license plate: {viewModel.LicensePlate} successfully registered!";
         }
     }
-    public async Task<List<UserDto>> GetUsersAsync()
+    public async Task<List<CarDto>> GetCarsForApiAsync()
     {
-        var ret = await dbContext.Users
-            .Select(u => new UserDto()
+        var ret = await dbContext.Cars
+            .Select(u => new CarDto()
             {
                 Id = u.Id,
-                Username = u.UserName!,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
+                Model = u.Model,
+                Category = u.Category.Name,
+                LicensePlate = u.LicensePlate,
+                Description = u.Description,
             })
             .ToListAsync();
         return ret;
     }
-    public async Task<AdminIndexVM> GetUserInfoFromApiAsync()
+    public async Task<CarIndexVM> GetCarInfoFromApiAsync()
     {
-        string url = "https://localhost:7216/api/getusers";
+        string url = "https://localhost:7216/api/getcars";
 
         HttpClient httpClient = clientFactory.CreateClient();
-        List<UserDto> users = await httpClient.GetFromJsonAsync<List<UserDto>>(url) ?? new List<UserDto>();
+        List<CarDto> cars = await httpClient.GetFromJsonAsync<List<CarDto>>(url) ?? new List<CarDto>();
 
-        var ret = new AdminIndexVM
+        var ret = new CarIndexVM
         {
-            Users = users
-            .Select(u => new AdminIndexVM.UserListVM
+            Temp = stateService.TempDataCreateVehicleConfirmation,
+            CarItems = cars
+            .Select(u => new CarIndexVM.CarItemsVM
             {
                 Id = u.Id,
-                Username = u.Username,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-
+                Model = u.Model,
+                Category = u.Category,
+                LicensePlate = u.LicensePlate,
+                Description = u.Description
             })
             .ToList(),
         };
         return ret;
+    }
+    public async Task<AdminIndexVM> GetUsersForAdminVMAsync()
+    {
+        var users = await dbContext.Users
+                .Select(u => new AdminIndexVM.UserListVM()
+                {
+                    Id = u.Id,
+                    Username = u.UserName,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                })
+                .ToListAsync();
+
+        return new AdminIndexVM()
+        {
+            Users = users
+        };
     }
 }

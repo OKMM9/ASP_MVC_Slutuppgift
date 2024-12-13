@@ -5,6 +5,7 @@ namespace ASP_MVC_Slutuppgift.Views.Account;
 public class RegisterVM
 {
     [Required]
+    [StringLength(25, ErrorMessage = "Maxlength 25")]
     public string Username { get; set; } = null!;
     [Required]
     [DataType(DataType.Password)]

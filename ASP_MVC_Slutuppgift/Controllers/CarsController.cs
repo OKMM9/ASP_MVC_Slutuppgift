@@ -10,7 +10,7 @@ public class CarsController(DataService dataService) : Controller
     [HttpGet("cars")]
     public async Task<IActionResult> CarIndex()
     {
-        var model = await dataService.GetAllCarsAsync();
+        var model = await dataService.GetCarInfoFromApiAsync();
 
         return View(model);
     }
@@ -25,9 +25,9 @@ public class CarsController(DataService dataService) : Controller
         return View();
     }
     [HttpGet("cars/create")]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        var model = dataService.GetVehicleTypeSelectList();
+        var model = await dataService.GetVehicleTypeSelectListAsync();
         return View(model);
     } 
     [HttpPost("cars/create")]

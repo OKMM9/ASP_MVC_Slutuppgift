@@ -10,5 +10,6 @@ public class CarIndexVM
         public string Model { get; set; } = null!;
         public string LicensePlate { get; set; } = null!;
         public string Category { get; set; } = null!;
+        public string? Description { get; set; }
     }
 }

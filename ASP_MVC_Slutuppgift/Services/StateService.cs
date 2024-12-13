@@ -7,7 +7,23 @@ public class StateService(IHttpContextAccessor accessor, IMemoryCache memoryCach
     ITempDataDictionaryFactory tempFactory)
 {
     const string TempKey = "Message";
-    public string? TempDataConfirmation
+    public string? TempDataCreateVehicleConfirmation
+    {
+        get
+        {
+            // Läs värdet från temp-data
+            var tempDataValue = tempFactory.GetTempData(accessor.HttpContext)[TempKey];
+
+            // Returnera ett konvertera värdet
+            return tempDataValue == null ? null : Convert.ToString(tempDataValue);
+        }
+        set
+        {
+            // Skriv värdet till temp-data
+            tempFactory.GetTempData(accessor.HttpContext)[TempKey] = value;
+        }
+    }  
+    public string? TempDataUserUpdateConfirmation
     {
         get
         {

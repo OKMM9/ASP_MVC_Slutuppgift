@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace ASP_MVC_Slutuppgift.Controllers;
 [Route("api/")]
 [ApiController]
-public class UserApiController(DataService dataService) : ControllerBase
+public class CarsApiController(DataService dataService) : ControllerBase
 {
-    [HttpGet("getusers")]
-    public async Task<ActionResult<List<UserDto>>?> GetUsersAsync()
+    [HttpGet("getcars")]
+    public async Task<ActionResult<List<UserDto>>?> GetCarsAsync()
     {
-        return Ok(await dataService.GetUsersAsync());
+        return Ok(await dataService.GetCarsForApiAsync());
     }
 }

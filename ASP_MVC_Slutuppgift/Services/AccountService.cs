@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ASP_MVC_Slutuppgift.Services;
 
-public class AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IHttpContextAccessor contextAccessor)
+public class AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IHttpContextAccessor contextAccessor, StateService stateService)
 {
-    internal async Task<ApplicationUser> GetUserByIdAsync()
+    internal async Task<ApplicationUser> GetLoggedInUserAsync()
     {
         var loggedInUserId = userManager.GetUserId(contextAccessor.HttpContext.User);
         ApplicationUser user = await userManager.FindByIdAsync(loggedInUserId);
@@ -15,14 +15,49 @@ public class AccountService(UserManager<ApplicationUser> userManager, SignInMana
     }
     internal async Task<UserPageVM> GetUserInfoAsync()
     {
-        var user = await GetUserByIdAsync();   
-        
+        var user = await GetLoggedInUserAsync();
+
         return new UserPageVM
         {
             Username = contextAccessor.HttpContext!.User.Identity!.Name!,
             FirstName = user.FirstName,
             LastName = user.LastName,
+            Temp = stateService.TempDataUserUpdateConfirmation
         };
+    }
+    internal async Task<EditUserVM> GetUserInfoForEditUser()
+    {
+        var user = await GetLoggedInUserAsync();
+
+        return new EditUserVM()
+        {
+            FirstName = user.FirstName ?? string.Empty,
+            LastName = user.LastName ?? string.Empty,
+            Email = user.Email ?? string.Empty,
+        };
+    }
+    internal async Task<string?> UpdateUserAsync(EditUserVM viewModel)
+    {
+        var user = await GetLoggedInUserAsync();
+
+        user.FirstName = viewModel.FirstName;
+        user.LastName = viewModel.LastName;
+        user.Email = viewModel.Email;
+
+        var result = await userManager.UpdateAsync(user);
+
+        bool successfullyChanged = result.Succeeded;
+
+        if (successfullyChanged)
+        {
+            stateService.TempDataUserUpdateConfirmation = $"User successfully updated!";
+        }
+
+        return successfullyChanged ? null : result.Errors.First().Description;
+    }
+    internal async Task DeleteUser()
+    {
+
     }
     internal async Task<string?> TryRegisterUserAsync(RegisterVM viewModel)
     {

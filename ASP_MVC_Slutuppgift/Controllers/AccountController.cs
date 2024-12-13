@@ -10,11 +10,11 @@ public class AccountController(AccountService accountService) : Controller
     public IActionResult Login()
     {
         return View();
-    }     
+    }
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginVM viewModel)
     {
-        if(!ModelState.IsValid) 
+        if (!ModelState.IsValid)
             return View();
 
         var errorMessage = await accountService.TryLoginAsync(viewModel);
@@ -61,6 +61,30 @@ public class AccountController(AccountService accountService) : Controller
             return View();
         }
 
+        return RedirectToAction(nameof(UserPage));
+    }
+    [Authorize]
+    [HttpGet("edituser")]
+    public async Task<IActionResult> EditUser()
+    {
+        var model = await accountService.GetUserInfoForEditUser();
+
+        return View(model);
+    }
+    [Authorize]
+    [HttpPost("edituser")]
+    public async Task<IActionResult> EditUser(EditUserVM viewModel)
+    {
+        if (!ModelState.IsValid)
+            return View();
+
+        var errorMessage = await accountService.UpdateUserAsync(viewModel);
+
+        if (errorMessage != null)
+        {
+            ModelState.AddModelError($"{errorMessage}", errorMessage);
+            return View();
+        }
         return RedirectToAction(nameof(UserPage));
     }
 }
