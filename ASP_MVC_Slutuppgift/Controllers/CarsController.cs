@@ -24,12 +24,14 @@ public class CarsController(DataService dataService) : Controller
     {
         return View();
     }
+    [Authorize(Roles = "Admin")]
     [HttpGet("cars/create")]
     public async Task<IActionResult> Create()
     {
         var model = await dataService.GetVehicleTypeSelectListAsync();
         return View(model);
-    } 
+    }
+    [Authorize(Roles = "Admin")]
     [HttpPost("cars/create")]
     public async Task<IActionResult> Create(CreateVM viewModel)
     {

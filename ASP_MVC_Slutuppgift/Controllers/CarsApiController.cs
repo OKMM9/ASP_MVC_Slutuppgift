@@ -9,7 +9,7 @@ namespace ASP_MVC_Slutuppgift.Controllers;
 public class CarsApiController(DataService dataService) : ControllerBase
 {
     [HttpGet("getcars")]
-    public async Task<ActionResult<List<UserDto>>?> GetCarsAsync()
+    public async Task<ActionResult<List<CarDto>>?> GetCarsAsync()
     {
         return Ok(await dataService.GetCarsForApiAsync());
     }

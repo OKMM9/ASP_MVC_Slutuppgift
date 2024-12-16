@@ -19,11 +19,8 @@ public class DataService(ApplicationDbContext dbContext, StateService stateServi
                     Text = o.Name
                 })
                 .ToArrayAsync();
-        
-        return new CreateVM()
-        {
-            CategoryList = categoriesSelect
-        };
+
+        return new CreateVM { CategoryList = categoriesSelect };
     }
     //public async Task<CarIndexVM> GetAllCarsAsync()
     //{
@@ -56,9 +53,8 @@ public class DataService(ApplicationDbContext dbContext, StateService stateServi
                     Category = o.Category.Name,
                 })
                 .OrderBy(o => o.Model)
-                .ToListAsync(),
+                .ToListAsync()
         };
-
         return ret;
     }
     public async Task<DetailsVM> GetCarDetailByIdAsync(int id)
@@ -135,16 +131,13 @@ public class DataService(ApplicationDbContext dbContext, StateService stateServi
                 .Select(u => new AdminIndexVM.UserListVM()
                 {
                     Id = u.Id,
-                    Username = u.UserName,
+                    Username = u.UserName!,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Email = u.Email,
                 })
                 .ToListAsync();
 
-        return new AdminIndexVM()
-        {
-            Users = users
-        };
+        return new AdminIndexVM { Users = users };
     }
 }

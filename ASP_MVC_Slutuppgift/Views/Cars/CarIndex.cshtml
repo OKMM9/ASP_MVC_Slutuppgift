@@ -1,7 +1,7 @@
 ﻿@model CarIndexVM
 
-@Model.Temp 
-
+@Model.Temp
+<div id="temp-value" data-temp="@Model.Temp"></div>
 @if (User.IsInRole("Admin"))
 {
     <nav>
@@ -9,60 +9,76 @@
     </nav>
 }
 <article>
-<h1>Vehicles currently available (API from server)</h1>
-<table class="striped">
-    <thead>
-        <tr>
-            <th scope="col">Model</th>
-            <th scope="col">License Plate #</th>
-            <th scope="col">Vehicle Type</th>
-            <th scope="col">Details</th>
-            <th scope="col">Book Car</th>
-            @if (User.IsInRole("Admin"))
-            {
-                <th scope="col">Edit</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var car in Model.CarItems)
-        {
+    <h1>Vehicles currently available (API from server)</h1>
+    <table class="striped">
+        <thead>
             <tr>
-                <td>@car.Model</td>
-                <td>@car.LicensePlate</td>
-                <td>@car.Category</td>
-                <td>
-                    <a asp-controller="Cars" asp-action="Details" asp-route-id="@car.Id">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 5C7.03 5 3.15 7.91 2.1 12c1.05 4.09 4.91 7 9.9 7s8.85-2.91 9.9-7c-1.05-4.09-4.91-7-9.9-7zm0 11c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path>
-                        </svg>
-                    </a>
-                </td>
-                <td>
-                    <a asp-controller="Cars" asp-action="Book" asp-route-id="@car.Id">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 13 L5 8 h14 l2 5"></path>
-                            <rect x="3" y="13" width="18" height="4" rx="1"></rect>
-                            <circle cx="7" cy="17" r="2"></circle>
-                            <circle cx="17" cy="17" r="2"></circle>
-                        </svg>
-                    </a>
-                </td>  @if (User.IsInRole("Admin"))
+                <th scope="col">Model</th>
+                <th scope="col">License Plate #</th>
+                <th scope="col">Vehicle Type</th>
+                <th scope="col">Details</th>
+                <th scope="col">Book Car</th>
+                @if (User.IsInRole("Admin"))
                 {
+                    <th scope="col">Edit</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model.CarItems)
+            {
+                <tr>
+                    <td>@car.Model</td>
+                    <td>@car.LicensePlate</td>
+                    <td>@car.Category</td>
                     <td>
-                        <a asp-controller="Cars" asp-action="Edit" asp-route-id="@car.Id">
+                        <a asp-controller="Cars" asp-action="Details" asp-route-id="@car.Id">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 3L21 8L16 13L13 10L18 5L16 3ZM3 21V14.5L14.5 3H21V9.5L9.5 21H3Z"></path>
-                            </svg></a>
-                        <a asp-controller="Cars" asp-action="Delete" asp-route-id="@car.Id">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 6H5H21M19 6L17.5 20H6.5L5 6H19ZM10 11V17M14 11V17"></path>
+                                <path d="M12 5C7.03 5 3.15 7.91 2.1 12c1.05 4.09 4.91 7 9.9 7s8.85-2.91 9.9-7c-1.05-4.09-4.91-7-9.9-7zm0 11c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path>
                             </svg>
                         </a>
                     </td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+                    <td>
+                        <a asp-controller="Cars" asp-action="Book" asp-route-id="@car.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 13 L5 8 h14 l2 5"></path>
+                                <rect x="3" y="13" width="18" height="4" rx="1"></rect>
+                                <circle cx="7" cy="17" r="2"></circle>
+                                <circle cx="17" cy="17" r="2"></circle>
+                            </svg>
+                        </a>
+                    </td>  @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <a asp-controller="Cars" asp-action="Edit" asp-route-id="@car.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3L21 8L16 13L13 10L18 5L16 3ZM3 21V14.5L14.5 3H21V9.5L9.5 21H3Z"></path>
+                                </svg></a>
+                            <a asp-controller="Cars" asp-action="Delete" asp-route-id="@car.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6H5H21M19 6L17.5 20H6.5L5 6H19ZM10 11V17M14 11V17"></path>
+                                </svg></a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </article>
+<script>
+    window.onload = function test() {
+            const tempElement = document.getElementById("temp-value");
+            const isTemp = tempElement.getAttribute("data-temp");
+        if(isTemp){
+            console.log(isTemp)
+
+             const text = "Vehicle registered";
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "en-US";
+            utterance.pitch = 1;
+
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+</script>

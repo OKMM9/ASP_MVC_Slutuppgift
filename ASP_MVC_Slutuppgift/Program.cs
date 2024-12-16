@@ -5,6 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASP_MVC_Slutuppgift;
 
+// BUV23 Slutuppgift i ASP.NET Core MVC - O.M 
+// Lägg till "DefaultConnection" i secrets, eller appsettings.json, använd kommandot update-database. 
+// För att testa websidan med alla funktioner, registrera en adminrole user (finns ett alternativ som tillåter det vid registrering. För test.)
+// Browser API anrop finns i home/index. 
+
 public class Program
 {
     public static void Main(string[] args)
