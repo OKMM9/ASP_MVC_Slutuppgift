@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace ASP_MVC_Slutuppgift.Services;
 
-public class StateService(IHttpContextAccessor accessor, IMemoryCache memoryCache,
+public class StateService(IHttpContextAccessor accessor,
     ITempDataDictionaryFactory tempFactory)
 {
     const string TempKey = "Message";
@@ -11,15 +10,12 @@ public class StateService(IHttpContextAccessor accessor, IMemoryCache memoryCach
     {
         get
         {
-            // Läs värdet från temp-data
             var tempDataValue = tempFactory.GetTempData(accessor.HttpContext)[TempKey];
-
-            // Returnera ett konvertera värdet
+           
             return tempDataValue == null ? null : Convert.ToString(tempDataValue);
         }
         set
         {
-            // Skriv värdet till temp-data
             tempFactory.GetTempData(accessor.HttpContext)[TempKey] = value;
         }
     }  
@@ -27,15 +23,12 @@ public class StateService(IHttpContextAccessor accessor, IMemoryCache memoryCach
     {
         get
         {
-            // Läs värdet från temp-data
             var tempDataValue = tempFactory.GetTempData(accessor.HttpContext)[TempKey];
 
-            // Returnera ett konvertera värdet
             return tempDataValue == null ? null : Convert.ToString(tempDataValue);
         }
         set
         {
-            // Skriv värdet till temp-data
             tempFactory.GetTempData(accessor.HttpContext)[TempKey] = value;
         }
     }

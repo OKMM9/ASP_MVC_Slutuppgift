@@ -5,6 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASP_MVC_Slutuppgift;
 
+// Final project of the ASP.NET Core MVC course - BUV23 O.M 
+// Info:
+// Lägg till "DefaultConnection" i secrets, eller appsettings.json, använd kommandot update-database. 
+// För att testa websidan med alla funktioner, registrera en adminrole user (finns ett alternativ som tillåter det vid registrering. För test.)
+// Browser API anrop finns i home/index. 
+
 public class Program
 {
     public static void Main(string[] args)
@@ -28,7 +34,6 @@ public class Program
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         {
-
             options.Password.RequiredLength = 6;
             options.Password.RequireNonAlphanumeric = true;
         })

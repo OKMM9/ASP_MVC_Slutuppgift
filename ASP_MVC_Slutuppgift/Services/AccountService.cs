@@ -40,8 +40,8 @@ public class AccountService(UserManager<ApplicationUser> userManager, SignInMana
     {
         var user = await GetLoggedInUserAsync();
 
-        user.FirstName = viewModel.FirstName;
-        user.LastName = viewModel.LastName;
+        user.FirstName = viewModel.FirstName ?? string.Empty;
+        user.LastName = viewModel.LastName ?? string.Empty;
         user.Email = viewModel.Email;
 
         var result = await userManager.UpdateAsync(user);
@@ -54,10 +54,6 @@ public class AccountService(UserManager<ApplicationUser> userManager, SignInMana
         }
 
         return successfullyChanged ? null : result.Errors.First().Description;
-    }
-    internal async Task DeleteUser()
-    {
-
     }
     internal async Task<string?> TryRegisterUserAsync(RegisterVM viewModel)
     {

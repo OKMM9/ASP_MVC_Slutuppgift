@@ -12,5 +12,4 @@ public class AdminController(DataService dataService) : Controller
         var model = await dataService.GetUsersForAdminVMAsync();
         return View(model);
     }
-
 }

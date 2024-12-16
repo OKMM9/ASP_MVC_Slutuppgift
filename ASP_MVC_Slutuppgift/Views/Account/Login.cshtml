@@ -7,10 +7,10 @@
             <h2>Log In</h2>
 
                 <form asp-controller="Account" asp-action="Login">
-                    <input asp-for="Username" placeholder="Enter Username" />
+                    <input asp-for="Username" />
                     <span asp-validation-for="Username"></span>
 
-                    <input asp-for="Password" placeholder="Enter Password" />
+                    <input asp-for="Password" />
                     <span asp-validation-for="Password"></span>
                     <br />
                     <input type="submit" value="Login" />

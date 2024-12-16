@@ -1,24 +1,24 @@
 ﻿@model EditUserVM
 
 <article>
-<h1>Edit User Info</h1>
-<article>
+    <h1>Edit User Info</h1>
+    <article>
 
-<form asp-controller="Account" asp-action="Edit">
+        <form asp-controller="Account" asp-action="Edit">
 
-    <input asp-for="FirstName" placeholder="@(Model.FirstName == null ? "Enter First Name" : Model.FirstName)" />
-    <span asp-validation-for="FirstName"></span>
+            <input asp-for="FirstName" />
+            <span asp-validation-for="FirstName"></span>
 
-        <input asp-for="LastName" placeholder="@(Model.FirstName == null ? "Enter Last Name" : Model.LastName)" />
-    <span asp-validation-for="LastName"></span>
+            <input asp-for="LastName" />
+            <span asp-validation-for="LastName"></span>
 
-        <input asp-for="Email" placeholder="@(Model.FirstName == null ? "Enter E-mail" : Model.Email)" />
-    <span asp-validation-for="Email"></span>
-    <br />
-    <input type="submit" value="Edit Userinfo" />
-</form>
-<div asp-validation-summary="All"></div>
-</article>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+            <br />
+            <input type="submit" value="Edit Userinfo" />
+        </form>
+        <div asp-validation-summary="All"></div>
+    </article>
 </article>
 @section scripts
 {

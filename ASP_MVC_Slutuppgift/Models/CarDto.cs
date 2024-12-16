@@ -6,5 +6,5 @@ public class CarDto
     public string Model { get; set; } = null!;
     public string LicensePlate { get; set; } = null!;
     public string? Description { get; set; }
-    public string Category { get; set; } = null!;
+    public Category Category { get; set; } = null!;
 }

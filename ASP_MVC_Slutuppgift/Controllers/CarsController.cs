@@ -14,22 +14,26 @@ public class CarsController(DataService dataService) : Controller
 
         return View(model);
     }
+    //TODO
     [HttpGet("bookvehicle/{id}")]
     public async Task<IActionResult> Book(int id)
     {
         return View();
     }
+    //TODO
     [HttpPost("bookvehicle/{id}")]
     public async Task<IActionResult> Book(BookVM viewModel)
     {
         return View();
     }
+    [Authorize(Roles = "Admin")]
     [HttpGet("cars/create")]
     public async Task<IActionResult> Create()
     {
         var model = await dataService.GetVehicleTypeSelectListAsync();
         return View(model);
-    } 
+    }
+    [Authorize(Roles = "Admin")]
     [HttpPost("cars/create")]
     public async Task<IActionResult> Create(CreateVM viewModel)
     {

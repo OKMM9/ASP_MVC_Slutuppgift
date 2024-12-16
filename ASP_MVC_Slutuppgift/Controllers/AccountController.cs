@@ -9,11 +9,18 @@ public class AccountController(AccountService accountService) : Controller
     [HttpGet("login")]
     public IActionResult Login()
     {
+        if (User.Identity.IsAuthenticated)
+            return RedirectToAction("Index", "Home");
+
         return View();
     }
+
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginVM viewModel)
     {
+        if (User.Identity.IsAuthenticated)
+            return RedirectToAction("Index", "Home");
+
         if (!ModelState.IsValid)
             return View();
 
@@ -27,6 +34,7 @@ public class AccountController(AccountService accountService) : Controller
 
         return RedirectToAction(nameof(UserPage));
     }
+
     [HttpGet("logout")]
     public async Task<IActionResult> LogoutAsync()
     {
@@ -42,14 +50,22 @@ public class AccountController(AccountService accountService) : Controller
 
         return View(model);
     }
+
     [HttpGet("register")]
     public IActionResult Register()
     {
+        if (User.Identity.IsAuthenticated) 
+            return RedirectToAction("Index", "Home"); 
+
         return View();
     }
+
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync(RegisterVM viewModel)
     {
+        if (User.Identity.IsAuthenticated)
+            return RedirectToAction("Index", "Home");
+
         if (!ModelState.IsValid)
             return View();
 
@@ -63,6 +79,7 @@ public class AccountController(AccountService accountService) : Controller
 
         return RedirectToAction(nameof(UserPage));
     }
+
     [Authorize]
     [HttpGet("edituser")]
     public async Task<IActionResult> EditUser()
@@ -71,6 +88,7 @@ public class AccountController(AccountService accountService) : Controller
 
         return View(model);
     }
+
     [Authorize]
     [HttpPost("edituser")]
     public async Task<IActionResult> EditUser(EditUserVM viewModel)

@@ -3,20 +3,20 @@
 
 <h2>Add new vehicle</h2>
 <form asp-controller="Cars" asp-action="Create">
-    <input asp-for="Model" placeholder="Model" />
+    <input asp-for="Model" />
     <span asp-validation-for="Model"></span>
 
-    <input asp-for="LicensePlate" placeholder="License Plate Number" />
+    <input asp-for="LicensePlate" />
     <span asp-validation-for="LicensePlate"></span>
 
-    <textarea asp-for="Description" placeholder="Description" ></textarea>
+    <textarea asp-for="Description" ></textarea>
     <span asp-validation-for="Description"></span>
 
     <select asp-for="CategoryId" asp-items="Model.CategoryList"> <option value="" disabled selected>Choose Vehicle Type</option></select>
     <span asp-validation-for="CategoryId"></span>
 
     <br />
-    <input type="submit" value="Register new vehicle" />
+    <input type="submit" value="Register new vehicle" onclick="press()"/>
 </form>
 <div asp-validation-summary="All"></div>
 </article>

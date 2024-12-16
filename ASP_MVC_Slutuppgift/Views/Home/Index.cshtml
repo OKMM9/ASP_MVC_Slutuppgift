@@ -40,9 +40,9 @@
             </table>
             <script>
                 window.onload = function() {
-                // AJAX-anrop till API:t när sidan laddas
-                fetch('https://localhost:7216/api/getcars') // API-endpointen
-                .then(response => response.json()) // Om svaret är OK, konvertera det till JSON
+                
+                fetch('https://localhost:7216/api/getcars') 
+                .then(response => response.json()) 
                 .then(cars => {
                 let html = "";
 
@@ -50,7 +50,7 @@
                 html += `
                 <tr>
                 <td>${car.model}</td>
-                <td>${car.category} </td>
+                <td>${car.category.name} </td>
                 <td><a href=/bookvehicle/${car.id}>
                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                        <path d="M3 13 L5 8 h14 l2 5"></path>
@@ -63,11 +63,11 @@
                 `;
                 });
 
-                // Uppdatera HTML-innehållet i result-diven
+                
                 document.getElementById("result").innerHTML = html;
                 })
                 .catch(error => {
-                // Om något går fel, visa ett felmeddelande
+                
                 document.getElementById("result").innerHTML = "<p>Error loading cars.</p>";
                 });
                 };
