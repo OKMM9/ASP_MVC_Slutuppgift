@@ -17,7 +17,7 @@ public class AccountController(AccountService accountService) : Controller
 
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginVM viewModel)
-    {
+    {  
         if (User.Identity.IsAuthenticated)
             return RedirectToAction("Index", "Home");
 
@@ -54,8 +54,8 @@ public class AccountController(AccountService accountService) : Controller
     [HttpGet("register")]
     public IActionResult Register()
     {
-        if (User.Identity.IsAuthenticated) 
-            return RedirectToAction("Index", "Home"); 
+        if (User.Identity.IsAuthenticated)
+            return RedirectToAction("Index", "Home");
 
         return View();
     }
